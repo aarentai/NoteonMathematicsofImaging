@@ -38,7 +38,7 @@
 \newtheorem{corollary}{Corollary}
 \newenvironment{example}[1][]{\refstepcounter{example}\par\medskip
    \noindent \textbf{Example~\theexample. #1} \rmfamily}{\medskip}
-\newcounter{example}{Example}
+\newcounter{example}[Example]
       
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -407,7 +407,7 @@ where the tuning parameter $\lambda$ is to control the rigidity of the deformati
 \end{definition}
 
 \newpage
-\section{Riemannian Geometry}
+\section{Differential Geometry for Images}
 \begin{definition}
 \boxed{\textbf{Isomorphism}}\cite{fletcher,hao,zhang} is a function between two structures of the same type that can be reversed by an inverse function.
 \end{definition}
@@ -1796,7 +1796,7 @@ The essential cause of the above phenomena is that, due to the limitation in com
 \end{figure}
 
 \newpage
-\section{Statistics for images}
+\section{Statistics for Images}
 \begin{definition}
 \boxed{\textbf{Principal components analysis(PCA)}} seeks a sequence of linear subspaces that maximize the variance of the data, the intent of which is to find an orthonormal basis $\{e_1,\cdots,e_k\}$ of a set of points $\{S^1,\cdots,S^n\}\in\mathbb{R}^d$, and the new basis is of the same dimension $d$ as the original space, which satisfies the recursive relationship
 \begin{align*}
@@ -1928,6 +1928,33 @@ To form a reduced dimension space $S'$, simply pick the largest $k$ eigenvalues 
 \end{remark}
 
 \begin{definition}
+\boxed{\textbf{Atlas}} is the image of the average anatomy of a collection of anatomical images.
+\end{definition}
+
+\begin{remark}
+Motivation of atlas building:
+\begin{itemize}
+    \item Map population into common coordinate space;
+    \item Learn about variability of brain anatomy;
+    \item Describe difference from normal;
+    \item Use as normative atlas for segmentation.
+\end{itemize}
+\end{remark}
+
+\begin{example}
+Atlas-based segmentation:
+\begin{enumerate}
+    \item Build atlas with segmented structures;
+    \item Transform the atlas to case;
+    \item Make decision voxel-wise according to atlas.
+\end{enumerate}
+\end{example}
+
+\begin{remark}
+The space of diffeomorphisms is not a vector space, despite the linear average $\mu=\frac{1}{N}\sum^N_{i=1}x_i$, we need a more general notion of average, and here comes the Fréchet mean.
+\end{remark}
+
+\begin{definition}
 \boxed{\textbf{Fréchet mean and variance}} are defined as
 \begin{align*}
     p_*&=\argmin_p\phi(p), && \triangleright\text{Fréchet mean}\\
@@ -2027,7 +2054,7 @@ In a more specific way, we have
 \end{remark}
 
 \newpage
-\section{Linear Algebra}
+\section{Linear Algebra for Images}
 \subsection{Multiplication}
 \begin{definition}
 Matrix multiplication of $U,V$ can be presented by two ways
