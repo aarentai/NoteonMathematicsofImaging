@@ -408,6 +408,7 @@ where the tuning parameter $\lambda$ is to control the rigidity of the deformati
 
 \newpage
 \section{Differential Geometry for Images}
+\paragraph{Overview.} \underline{Riemannian manifolds} is a space that locally resemble Euclidean space and equipped with a \underline{Riemannian metric}, which defines the inner product at each point and is in form of a \underline{metric tensor}. \underline{Tangent space} is a vector(Euclidean) space that associate with each point on the manifold. Distance between two points on a Riemannian manifold is called \underline{geodesic}, which is also called the shortest path. This distance make a manifold \underline{metric space}.
 \begin{definition}
 \boxed{\textbf{Isomorphism}}\cite{fletcher,hao,zhang} is a function between two structures of the same type that can be reversed by an inverse function.
 \end{definition}
@@ -601,6 +602,15 @@ For vector field $f:\mathbb{R}^2\rightarrow\mathbb{R}^2$:
 \begin{definition}
 \boxed{\textbf{Riemannian metric}} on a differential manifold $M$ is a smooth function that assigns to each point $p$ of $M$ an inner product $\langle\cdot,\cdot\rangle$ on the tangent space $T_pM$.
 \end{definition}
+
+\begin{remark}
+Assuming $A$ is the metric at point $p\in M$, and $v,\lambda$ are the unit eigenvector and its square root corresponding eigenvalue of $A$.
+\begin{align*}
+    Av&=\lambda v\\
+    \|v\|^2=v^TAv&=v^T\lambda v=\lambda v^Tv=\lambda
+\end{align*}
+The deviation above tells you that the length of unit vector in the direction of eigenvector is scored as its corresponding eigenvalue. The unit vector points to other direction may be scored at different length.
+\end{remark}
 
 \begin{definition}
 \boxed{\textbf{Metric tensor}}\cite{metric} is a function which tells how to compute the distance between any two points in a given space.
@@ -2011,6 +2021,43 @@ where $x_1,x_2,\cdots,x_n$ are the random points in $M$ and $p\in M$.
 \end{align*}
 where $x_1,x_2,\cdots,x_n$ are the random points in $M$ and $p\in M$.
 \end{definition}
+
+\begin{definition}
+\boxed{\textbf{Fréchet distance}} between $A$ and $B$ is defined as infimum over all reparameterizations $\alpha$ and $\beta$ of the maximum over all $t\in[0,1]$ of the distance between $A(\alpha(t))$ and $B(\beta(t))$.
+\begin{equation*}
+    F(A,B)=\inf_{\alpha,\beta}\max_{t\in[0,1]}\left\{d\left(A(\alpha(t)),B(\beta(t))\right)\right\}
+\end{equation*}
+where $d$ is the distance function, e.g. Euclidean distance.
+\end{definition}
+
+\begin{example}
+Informally, we can think of the $t$ in parameterization as ``time''. In the discrete situation, we can think of $\alpha(t), \beta(t)$ as two sequences of same size. Say integer index $t\in [0,100)$, so the sequences $\alpha(\cdot):\mathbb{Z}^1\rightarrow\mathbb{Z}^1, \beta(\cdot):\mathbb{Z}^1\rightarrow\mathbb{Z}^1$ can be presented as follows:
+\begin{align*}
+    \alpha(\cdot)&=[\alpha(0), \alpha(1), \alpha(2), \cdots, \alpha(99)],\\
+    \beta(\cdot)&=[\beta(0), \beta(1), \beta(2), \cdots, \beta(99)],
+\end{align*}
+where $\alpha(0)\le \alpha(1)\le \alpha(2)\le \cdots\le \alpha(99)$ and $\beta(0)\le \beta(1)\le \beta(2)\le \cdots\le \beta(99)$.
+We can view the $\alpha(\cdot), \beta(\cdot)$ as two displacement-time graphs in the way of sequence, which tells you the moving points move forward in what manner.
+
+$A(\cdot):\mathbb{Z}^1\rightarrow\mathbb{R}^n, B(\cdot):\mathbb{Z}^1\rightarrow\mathbb{R}^n$ are also two sequences of same size(not necessary the same size as $\alpha,\beta$), which can be exhibited as follows:
+\begin{align*}
+    A(\cdot)&=[A(0), A(1), A(2), \cdots],\\
+    B(\cdot)&=[B(0), B(1), B(2), \cdots],
+\end{align*}
+and $A(i)$ and $B(i)$ are the coordinates in the metric space.
+
+So for calculating the Fréchet distance between the curves, the key is to find all the possible reparameterizations $\alpha, \beta$. And for each combination of $\alpha, \beta$, we can then find the maximum distance across the whole ``time period'', followed by finding the infimum among all the maximum distance under each combination. 
+\end{example}
+
+\begin{remark}
+In a nutshell, the Fréchet distance between two given fixed paths can be found in this way: we want to find moving patterns of the two points on two paths that the maximun distance during this travel is minimized. The satisfied moving patterns are often making the two points moving forward ``simultenously''.
+\end{remark}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{figure/fm.png}
+    \caption{The Fréchet distance between two same shape curves is the norm of the translation vector.}
+\end{figure}
 
 \begin{corollary}
 Given $\Delta f=g$, $f(x,y)=\mathcal{F}^{-1}\left[\frac{1}{2\cos(2\pi u/M)+2\cos(2\pi v/N)-4}G(u,v)\right]$.
