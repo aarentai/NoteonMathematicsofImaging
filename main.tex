@@ -47,6 +47,18 @@
 
 \section{Vector Space}
 \begin{definition}
+\fbox{\textbf{Vector space}} is a set of elements called vectors together with two operations: addition and scalar multiplication, which are assumed to satisfy the following axioms:
+\begin{enumerate}
+    \item $x+y=y+x$
+    \item $(x+y)+z=x+(y+z)$
+    \item There is a null vector $\theta\in X$ such that $x+\theta=x$ for every $x\in X$
+    \item $\alpha(x+y)=\alpha x+\alpha y$; $(\alpha+\beta)x=\alpha x+\beta x$
+    \item $(\alpha\beta)x=\alpha(\beta x)$
+    \item $0x=\theta$; $1x=x$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
 \fbox{\textbf{Inner product}}\cite{optimization} $\langle\cdot,\cdot\rangle:X\times X\rightarrow\mathbb{R}$ is a mapping that satisfies the following axioms:
 \begin{enumerate}
     \item $\langle x,y\rangle=\langle y,x\rangle$
@@ -71,6 +83,10 @@ For $A,B\in \mathrm{GL}(n)$, the inner product $\langle A,B\rangle=\mathrm{Tr}(A
 where $X$ is a vector space.
 \end{definition}
 
+\begin{remark}
+Norm and inner product are two independent concepts. Norm is not necessarily defined by inner product. But when the Banach space's norm is defined by inner product, then it is called Hilbert space.
+\end{remark}
+
 \begin{example}
 The norm is clearly an abstraction of our usual concept of length. For continuous situation, the \textbf{supremum norm} $\|f\|_\infty$ is the supremum (lowest upper bound) of all elements of its domain evaluated in $f$. For discrete situation, the sup norm equals to the maximum of absolute values of its components, namely $\|f\|_\infty=\max |f_i|$.
 \end{example}
@@ -86,25 +102,25 @@ If $f:\mathbb{R}^n\rightarrow\mathbb{R}, f(x)=\|x\|_p, p\ge1$, then $f$ is conve
 \end{figure}
 
 \begin{definition}
-\fbox{\textbf{$l_p$ space}} consists of all sequences of scalars $\{\xi_1,\xi_2,\cdots\}$ for which
+\fbox{\textbf{$l^p$ space}} consists of all sequences of scalars $\{\xi_1,\xi_2,\cdots\}$ for which
 \begin{equation*}
     \sum^\infty_{i=1}|\xi_i|^p<\infty
 \end{equation*}
 where $1\le p<\infty$.
 \end{definition}
-The norm of an element $x=\{\xi_i\}$ in $l_p$ is defined as 
+The norm of an element $x=\{\xi_i\}$ in $l^p$ is defined as 
 \begin{equation*}
     \|x\|_p=\left(\sum^\infty_{i=1}|\xi_i|^p\right)^{1/p}
 \end{equation*}
 
 \begin{definition}
-\fbox{\textbf{$L_p[a,b]$ space}} consists of all functions $f(u)$ for which
+\fbox{\textbf{$L^p[a,b]$ space (Lebesgue sapce)}} consists of all functions $f(u)$ for which
 \begin{equation*}
     \int^b_a|f(u)|^pdu<\infty
 \end{equation*}
 where $1\le p<\infty$.
 \end{definition}
-The norm of an element $f(u)$ in $L_p$ is defined as 
+The norm of an element $f(u)$ in $L^p$ is defined as 
 \begin{equation*}
     \|f\|_p=\left(\int^b_a|f(u)|^pdu\right)^{1/p}
 \end{equation*}
@@ -114,10 +130,32 @@ The $L^p$-functions are the functions for which this integral converges. For $p\
 Always remember the \textbf{absolute value sign} in norm calculation.
 \end{remark}
 
+\begin{remark}
+$L^p$ space is a space of measurable functions for which the $p$-th power of the absolute value is Lebesgue integrable.
+\end{remark}
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.4]{figure/norm}
 \caption{Visualization of $\|x\|_p=1$, which are the cross sections of Figure \ref{convex}.}
+\end{figure}
+
+\begin{definition}
+\fbox{\textbf{Lebesgue integral}} of a function f over a measure space $X$ is written
+\begin{equation*}
+    \int_X fd\mu
+\end{equation*} 
+to emphasize that the integral is taken with respect to the measure $\mu$.
+\end{definition}
+
+\begin{remark}
+In mathematics, the integral of a non-negative function of a single variable can be regarded, in the simplest case, as the area between the graph of that function and the $x$-axis. The Lebesgue integral extends the integral to a larger class of functions.
+\end{remark}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.3]{figure/RandLintegrals.png}
+    \caption{Riemann-Darboux's integration (in blue) and Lebesgue integration (in red).}
 \end{figure}
 
 \begin{definition}
@@ -153,6 +191,11 @@ A normed linear vector space $X$ is \fbox{\textbf{complete}} is every Cauchy seq
 \fbox{\textbf{Hilbert space}} is a complete pre-Hilbert space or a Banach space whose norm is defined by inner product.
 \end{definition}
 
+\begin{remark}
+Hilbert spaces are complete infinitedimensional spaces in which distances and angles can be measured. These spaces have a major impact
+in analysis and topology and will provide a convenient and proper setting for the functional analysis of partial differential equations.
+\end{remark}
+
 \begin{theorem}
 \textbf{Holder Inequality}. If $p$ and $q$ are positive numbers $1\le p\le\infty, 1\le q\le\infty$, such that $1/p+1/q=1$ and if $x=\{\xi_1,\xi_2,\cdots\}\in l_p, y=\{\eta_1,\eta_2,\cdots\}\in l_q$, then
 \begin{equation*}
@@ -182,6 +225,53 @@ Equality holds if and only if $k_1x=k_2y$ for some positive constants $k_1$ and 
 \end{equation*}
 where $N$ is the outward normal to $\Omega$ and $\mathrm{div}(\varphi)=\mathrm{trace}(D\varphi)$.
 \end{theorem}
+
+\begin{definition}
+\fbox{\textbf{Sobolev space}}$W^{k,p}(\mathbb{R})$ for $1\leq p\leq \infty$  in one-dimensional case is defined as the subset of functions $f$ in $L^{p}(\mathbb {R})$ such that $f$ and its weak derivatives\footnote{A weak derivative is a generalization of the concept of the derivative of a function (strong derivative) for functions not assumed differentiable, but only integrable to lie in the $L^p$ space.} up to order $k$ have a finite $L^p$ norm. 
+\begin{equation*}
+    \|f\|_{k,p}= \left (\sum_{i=0}^k \int \left |f^{(i)}(t) \right |^p\,dt \right )^{\frac{1}{p}}.
+\end{equation*}
+\end{definition}
+
+\begin{remark}
+In the one-dimensional problem it is enough to assume that the $(k{-}1)$-th derivative $f^{(k-1)}$ is differentiable almost everywhere and is equal almost everywhere to the Lebesgue integral of its derivative (this excludes irrelevant examples such as Cantor's function).
+\end{remark}
+
+\begin{example}
+Sobolev spaces with $p = 2$ are especially important because of their connection with Fourier series and because they form a Hilbert space. A special notation has arisen to cover this case, since the space is a Hilbert space:
+\begin{equation*}
+    H^{k}=W^{k,2}.
+\end{equation*}
+Thereby, the frequently occurring $H^1$ denotes the Sobolev space is constituted by the functions $f$ such that its first derivative have a finite $L^2$ norm.
+\end{example}
+
+\begin{example}
+The space $H^{k}$ can be defined naturally in terms of Fourier series whose coefficients decay sufficiently rapidly, namely,
+\begin{equation*}
+    H^{k}(\mathbb {T} )=\left\{f\in L^{2}(\mathbb {T} ):\sum _{n=-\infty }^{\infty }\left(1+n^{2}+n^{4}+\dots +n^{2k}\right)\left|{\widehat {f}}(n)\right|^{2}<\infty \right\}
+\end{equation*}
+where $\widehat {f}$ is the Fourier series of $f$, and $\mathbb {T}$  denotes the 1-torus. As above, one can use the equivalent norm
+\begin{equation*}
+    \|f\|_{k,2}^{2}=\sum _{n=-\infty }^{\infty }\left(1+|n|^{2}\right)^{k}\left|{\widehat {f}}(n)\right|^{2}.
+\end{equation*}
+\end{example}
+
+\begin{remark}
+Overview of several spaces:
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\hline \hline
+\textbf{Space} & \textbf{Elements}                                                                                    & \textbf{Operations}                                            & \textbf{Equivalents}                                                                 \\ \hline \hline
+Vector         & vectors                                                                                              & $x+y,\alpha x$                                &                                                                                       \\ \hline
+Pre-Hilbert    & vectors                                                                                              & $x+y,\alpha x$, $\left<\cdot,\cdot\right>$                 & vector space $+\left<\cdot,\cdot\right>$                                                       \\ \hline
+Banach         & vectors                                                                                              & $x+y,\alpha x,\|\cdot\|$                          & vector space(complete) $+\|\cdot\|$                              \\ \hline
+Hilbert        & vectors                                                                                              & \begin{tabular}{c}$x+y,\alpha x$,\\ $\|\cdot\|$ defined by $\left<\cdot,\cdot\right>$\end{tabular} & vector space(complete)$+\left<\cdot,\cdot\right>+\|\cdot\|$ \\ \hline
+Lebesgue       & \begin{tabular}{c}functions(vectors)\\s.t. $\|f\|_p<\infty$, $p\in[1,\infty)$\end{tabular}  & $x+y,\alpha x,\|\cdot\|$   & Banach space  \\ \hline
+$H^1$ Sobolev  & \begin{tabular}{c}functions(vectors)\\s.t. $f'$ has $L^2$ norm \end{tabular} & $x+y,\alpha x,\|\cdot\|$   & Banach space \\ \hline \hline
+\end{tabular}
+\end{table}
+\end{remark}
 
 \begin{definition}
 \fbox{\textbf{Euler-Lagrange equation}} is defined as
@@ -249,6 +339,31 @@ which means that
 \end{equation*}
 is the solution to $Lu(x)=f(x)$.
 \end{theorem}
+
+\begin{definition}
+\fbox{\textbf{Linear operators}} $L$ are the operators such that for every pair of functions $f$ and $g$ and scalar $t$, it has
+\begin{align*}
+    L(f+g)&=L(f)+L(g), \\
+    L(tf)&=tL(f). 
+\end{align*}
+\end{definition}
+
+\begin{example}
+The following operators are all linear:
+\begin{table}[]
+\centering
+\begin{tabular}{ccc}
+\hline
+\textbf{Operator}     & $L(f+g)=L(f)+L(g)$                              & $L(tf)=tL(f)$                     \\ \hline
+Differential & $\frac{d(f+g)}{dx}=\frac{df}{dx}+\frac{dg}{dx}$ & $\frac{d(tf)}{dx}=t\frac{df}{dx}$ \\
+Integral &  $\int (f+g)dx=\int fdx+\int gdx$ & $\int (tf)dx=t\int fdx$ \\
+Gradient &  $\nabla (f+g)=\nabla f+\nabla g$  &  $\nabla (tf)=t\nabla f$  \\
+Fourier &  $\mathcal{F} (f+g)=\mathcal{F} f+\mathcal{F} g$  &  $\mathcal{F} (tf)=t\mathcal{F} f$  \\
+Laplacian &  $\Delta (f+g)=\Delta f+\Delta g$  &  $\Delta (tf)=t\Delta f$  \\ 
+Expectation &  $E (f+g)=E(f)+E(g)$  &  $E(tf)=tE(f)$  \\ \hline
+\end{tabular}
+\end{table}
+\end{example}
 
 \begin{definition}\cite{ucl}
 \boxed{\textbf{Kernel}} $k:\mathcal{X}\times\mathcal{X}\rightarrow\mathbb{R}$ is a function, where $\mathcal{H}$ is a Hilbert space and $\mathcal{X}$ is a non-empty set, if there exists a function $\phi:\mathcal{X}\rightarrow\mathcal{H}$ such that for any $x,x'\in\mathcal{X}$, we have
@@ -1807,74 +1922,6 @@ The essential cause of the above phenomena is that, due to the limitation in com
 
 \newpage
 \section{Statistics for Images}
-\begin{definition}
-\boxed{\textbf{Principal components analysis(PCA)}} seeks a sequence of linear subspaces that maximize the variance of the data, the intent of which is to find an orthonormal basis $\{e_1,\cdots,e_k\}$ of a set of points $\{S^1,\cdots,S^n\}\in\mathbb{R}^d$, and the new basis is of the same dimension $d$ as the original space, which satisfies the recursive relationship
-\begin{align*}
-    e_1&=\argmax_{\|e\|=1}\sum^n_{i=1}\langle e,S^i\rangle^2\\
-    e_2&=\argmax_{\|e\|=1}\sum^n_{i=1}[\langle e_1,S^i\rangle^2+\langle e,S^i\rangle^2]\\
-    \vdots\\
-    e_k&=\argmax_{\|e\|=1}\sum^n_{i=1}[\langle e_1,S^i\rangle^2+\cdots+\langle e_{k-1},S^i\rangle^2+\langle e,S^i\rangle^2]
-\end{align*}
-In other words, the subspace $V_k=\operatorname{span}(\{e_1,\cdots,e_k\})$ is the $k$-dimensional subspace that maximizes the variance of the data projected to the subspace. The basis $\{e_i\}$ is computed as the set of ordered eigenvectors of the sample covariance matrix of the data.
-\end{definition}
-
-\begin{remark}
-Concatenating all the feature vector together as a matrix, using SVD to decompose the matrix is a common way of performing PCA.
-\end{remark}
-
-\begin{example}
-Given a dataset $S=\{S^1,\cdots,S^n\}$ of $n$ samples, where $S^i\in\mathbb{R}^d$ and $\Bar{S}$ is the mean of the dataset $S$
-\begin{equation*}
-    S^i=
-    \begin{pmatrix}
-        s^i_1\\
-        \vdots\\
-        s^i_d
-    \end{pmatrix},
-    \Bar{S}=
-    \begin{pmatrix}
-        \Bar{s}_1\\
-        \vdots\\
-        \Bar{s}_d
-    \end{pmatrix}.
-\end{equation*}
-Then we can have a $d\times d$ covariance matrix $\Sigma$
-\begin{equation*}
-    \Sigma=
-    \begin{pmatrix}
-        \operatorname{cov}(s_1,s_1) & \cdots & \operatorname{cov}(s_1,s_d)\\
-        \vdots &  \ddots &  \vdots \\
-        \operatorname{cov}(s_d,s_1) & \cdots & \operatorname{cov}(s_d,s_d)
-    \end{pmatrix}=
-    \begin{pmatrix}
-        \text{cov of $1^{st}$ and $1^{st}$ dim} & \cdots & \text{cov of $1^{st}$ and $d^{th}$ dim}\\
-        \vdots &  \ddots &  \vdots \\
-        \text{cov of $d^{th}$ and $1^{st}$ dim} & \cdots & \text{cov of $d^{th}$ and $d^{th}$ dim}
-    \end{pmatrix},
-\end{equation*}
-where
-\begin{equation*}
-    \operatorname{cov}(s_j,s_k)=\frac{\sum^n_{i=1}(s^i_j-\Bar{s}_j)(s^i_k-\Bar{s}_k)}{n}.
-\end{equation*}
-To form a reduced dimension space $S'$, simply pick the largest $k$ eigenvalues of the covariance matrix above and the corresponding eigenvectors and the new dataset $S'$ is formed as below
-\begin{equation*}
-    \underbrace{
-    \begin{pmatrix}
-        S'^1 & \cdots & S'^n
-    \end{pmatrix}}_{k\times n}=
-    \underbrace{
-    \begin{pmatrix}
-        e^T_1\\
-        \vdots\\
-        e^T_p
-    \end{pmatrix}}_{k\times d}\cdot
-    \underbrace{
-    \begin{pmatrix}
-        S^1 & \cdots & S^n
-    \end{pmatrix}}_{d\times n}
-\end{equation*}
-\end{example}
-
 \begin{definition}
 \boxed{\textbf{Principal geodesic analysis(PGA)}} seeks a sequence of geodesic submanifolds that maximize the variance of the data. These submanifolds are called the principal geodesic submanifolds.
 \begin{itemize}
