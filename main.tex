@@ -3,6 +3,7 @@
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath,amsthm,enumitem}
+\usepackage{bbm}
 \usepackage{graphicx}
 \usepackage{lscape}
 \usepackage{geometry}
@@ -18,6 +19,7 @@
 \usepackage{float}
 \renewcommand{\baselinestretch}{1.5}
 \usepackage{todonotes}
+\usepackage{booktabs}
 \geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm} 
 
 \title{Note on Mathematics of Imaging}
@@ -70,7 +72,7 @@ where $X$ is a vector space.
 \end{definition}
 
 \begin{example}
-For $A,B\in \mathrm{GL}(n)$, the inner product $\langle A,B\rangle=\mathrm{Tr}(A^*B)$ and the associated norm $\|A\|_2=\mathrm{Tr}(A^*A)^{1/2}$.
+For $A,B\in \mathrm{GL}(n)$, the inner product $\langle A,B\rangle=\mathrm{Tr}(A^TB)$ and the associated norm $\|A\|_2=\mathrm{Tr}(A^TA)^{1/2}$.
 \end{example}
 
 \begin{definition}
@@ -192,6 +194,10 @@ A normed linear vector space $X$ is \fbox{\textbf{complete}} is every Cauchy seq
 \end{definition}
 
 \begin{remark}
+Actually, the hypothesis of completness is weak, it is always possible to complete a space $X$ endowed with a inner product. The ``completed'' norm is then associated with the inner product.
+\end{remark}
+
+\begin{remark}
 Hilbert spaces are complete infinitedimensional spaces in which distances and angles can be measured. These spaces have a major impact
 in analysis and topology and will provide a convenient and proper setting for the functional analysis of partial differential equations.
 \end{remark}
@@ -261,14 +267,14 @@ Overview of several spaces:
 \begin{table}[H]
 \centering
 \begin{tabular}{cccc}
-\hline \hline
-\textbf{Space} & \textbf{Elements}                                                                                    & \textbf{Operations}                                            & \textbf{Equivalents}                                                                 \\ \hline \hline
+\toprule
+\textbf{Spaces} & \textbf{Elements}                                                                                    & \textbf{Operations}                                            & \textbf{Equivalents}                                                                 \\ \toprule
 Vector         & vectors                                                                                              & $x+y,\alpha x$                                &                                                                                       \\ \hline
 Pre-Hilbert    & vectors                                                                                              & $x+y,\alpha x$, $\left<\cdot,\cdot\right>$                 & vector space $+\left<\cdot,\cdot\right>$                                                       \\ \hline
-Banach         & vectors                                                                                              & $x+y,\alpha x,\|\cdot\|$                          & vector space(complete) $+\|\cdot\|$                              \\ \hline
-Hilbert        & vectors                                                                                              & \begin{tabular}{c}$x+y,\alpha x$,\\ $\|\cdot\|$ defined by $\left<\cdot,\cdot\right>$\end{tabular} & vector space(complete)$+\left<\cdot,\cdot\right>+\|\cdot\|$ \\ \hline
+\textbf{Banach}         & vectors                                                                                              & $x+y,\alpha x,\|\cdot\|$                          & vector space(complete) $+\|\cdot\|$                              \\ \hline
+\textbf{Hilbert}        & vectors                                                                                              & \begin{tabular}{c}$x+y,\alpha x$,\\ $\|\cdot\|$ defined by $\left<\cdot,\cdot\right>$\end{tabular} & vector space(complete)$+\left<\cdot,\cdot\right>+\|\cdot\|$ \\ \hline
 Lebesgue       & \begin{tabular}{c}functions(vectors)\\s.t. $\|f\|_p<\infty$, $p\in[1,\infty)$\end{tabular}  & $x+y,\alpha x,\|\cdot\|$   & Banach space  \\ \hline
-$H^1$ Sobolev  & \begin{tabular}{c}functions(vectors)\\s.t. $f'$ has $L^2$ norm \end{tabular} & $x+y,\alpha x,\|\cdot\|$   & Banach space \\ \hline \hline
+$H^1$ Sobolev  & \begin{tabular}{c}functions(vectors)\\s.t. $f'$ has $L^2$ norm \end{tabular} & $x+y,\alpha x,\|\cdot\|$   & Banach space \\ \toprule
 \end{tabular}
 \end{table}
 \end{remark}
@@ -523,7 +529,7 @@ where the tuning parameter $\lambda$ is to control the rigidity of the deformati
 
 \newpage
 \section{Differential Geometry for Images}
-\paragraph{Overview.} \underline{Riemannian manifolds} is a space that locally resemble Euclidean space and equipped with a \underline{Riemannian metric}, which defines the inner product at each point and is in form of a \underline{metric tensor}. \underline{Tangent space} is a vector(Euclidean) space that associate with each point on the manifold. Distance between two points on a Riemannian manifold is called \underline{geodesic}, which is also called the shortest path. This distance make a manifold \underline{metric space}.
+\paragraph{Overview.} \underline{Riemannian manifolds} is a space that locally resemble Euclidean space and equipped with a \underline{Riemannian metric}, which defines the inner product at each point and is in form of a \underline{metric tensor}. \underline{Tangent space} is a vector(Euclidean) space that associate with each point on the manifold. Distance between two points on a Riemannian manifold is called \underline{geodesic}, which is also called the shortest path. This distance makes a manifold a \underline{metric space}.
 \begin{definition}
 \boxed{\textbf{Isomorphism}}\cite{fletcher,hao,zhang} is a function between two structures of the same type that can be reversed by an inverse function.
 \end{definition}
@@ -621,6 +627,27 @@ Since a tangent space $T_pM$ is the set of all tangent vectors to $M$ at $p$, th
 \end{definition}
 
 \begin{remark}
+The Hessian matrix of a function $f$ is the Jacobian matrix of the gradient of the function $f$ ; that is: $H(f) = D(\nabla f)$.
+\begin{proof}
+\begin{align*}
+    \nabla f(x^1,\cdots,x^n)&=\begin{pmatrix}
+    \partial_1f(x^1,\cdots,x^n)\\
+    \vdots\\
+    \partial_mf(x^1,\cdots,x^n)
+    \end{pmatrix}\\
+    D(\nabla f)&=
+    \begin{pmatrix}
+    \partial_1\partial_1f & \partial_2\partial_1f & \cdots & \partial_n\partial_1f\\
+    \partial_1\partial_2f & \partial_2\partial_2f & \cdots & \partial_n\partial_2f\\
+    \vdots & \vdots & \ddots & \vdots\\
+    \partial_1\partial_nf & \partial_2\partial_nf & \cdots & \partial_n\partial_nf
+    \end{pmatrix}=
+    Hf
+\end{align*}
+\end{proof}
+\end{remark}
+
+\begin{remark}
     If multivariable function $f:\mathbb{R}^n\rightarrow\mathbb{R}, \nabla f(x)=0, Hf(x)$ is positive (resp. negative) definite, then $x$ is the isolated local minimum (resp. maximum).
 \end{remark}
 
@@ -648,6 +675,12 @@ Relationship between convexity and positive-definiteness:
     \partial_1f^2_p & \partial_2f^2_p & \cdots & \partial_nf^2_p\\
     \vdots & \vdots & \ddots & \vdots\\
     \partial_1f^m_p & \partial_2f^m_p & \cdots & \partial_nf^m_p
+    \end{pmatrix}=
+    \begin{pmatrix}
+    (\nabla f^1_p)^T\\
+    (\nabla f^2_p)^T\\
+    \vdots\\
+    (\nabla f^m_p)^T
     \end{pmatrix},
 \end{equation*}
 where
@@ -2106,6 +2139,142 @@ In a nutshell, the Fréchet distance between two given fixed paths can be found 
     \caption{The Fréchet distance between two same shape curves is the norm of the translation vector.}
 \end{figure}
 
+\begin{definition}
+\boxed{\textbf{Wasserstein distance}} is defined as 
+\begin{align*}
+    W_{p}(\mu ,\nu )&=\left(\inf _{\gamma \in \Gamma (\mu ,\nu )}\int _{M\times M}\mathrm{dist}(x,y)^{p}\,\mathrm {d} \gamma (x,y)\right)^{1/p},\\
+    &=\left(\inf _{\gamma \in \Gamma (\mu ,\nu )}\int _{M\times M}\mathrm{dist}(x,y)^{p}\gamma (x,y)\mathrm {d}x\mathrm {d}y\right)^{1/p},\\
+    W_{2}(\mu ,\nu )&=\left(\inf _{\gamma \in \Gamma (\mu ,\nu )}\int _{M\times M}\mathrm{dist}(x,y)^{2}\gamma (x,y)\mathrm {d}x\mathrm {d}y\right)^{1/2},
+\end{align*}
+where $\Gamma(\mu,\nu)$ denotes the set of all coupling of marginal distribution $\mu$ and $\nu$, and $x, y$ are actually indicating the position in the respective distribution.
+
+In discrete case, the distance reads as
+\begin{equation*}
+    W_{p}(\mu ,\nu )=\min_{T \in \Gamma (\mu ,\nu )}\langle T,M_{\mu\nu}\rangle=\min_{T \in \Gamma (\mu ,\nu )}\operatorname{tr}(T^TM_{\mu\nu}),
+\end{equation*}
+where $M_{\mu\nu}=[\operatorname{dist}(x_i,y_j)^p]_{ij}\in\mathbb{R}^{m\times n}$ and $\Gamma(\mu,\nu)=\{T\in\mathbb{R}^{m\times n}_{+}|T\mathbbm{1}_m=a,T^T\mathbbm{1}_n=b\}$, namely the transport map matrix $T$ is under the constraint that the sum of each row and column equals to $a$ and $b$, respectively. The two matrices correspond to $\operatorname{dist}(x,y)$ and $\gamma(x,y)$ in continuous form.
+\end{definition}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.15]{figure/Transport-plan.png}
+    \caption{Wasserstein distance, credit to Wikipedia}
+\end{figure}
+
+\begin{remark}
+Wasserstein distance is closely related to optimal transport problem. That is, for two distributions of mass $\mu(x),\nu(y)$ in the space $S$, where $x,y\in S$, we wish to transport the mass at the lowest cost. The problem only makes sense when the sums of two distributions are identical, fortunately $\mu(x),\nu(y)$ are two probability distributions, namely the sum of mass equals to 1, this premise will be satisfied.
+
+Assuming there is also a cost function $c(x,y)\rightarrow[0,+\infty)$ which indicates the cost of transporting \textbf{unit mass} from point $x$ to point $y$. Function $\gamma(x,y)$ depicts a transport plan which gives the amount of mass moved from point $x$ to point $y$. 
+% In order to make this plan meaningful, it should satisfy the following properties
+% \begin{align*}
+%     \int\gamma(x,y)dx=\nu(y)\\
+%     \int\gamma(x,y)dy=\mu(x)
+% \end{align*}
+Therefore, the cost of the whole transport plan equals to
+\begin{equation*}
+    \int\int c(x,y)\gamma(x,y)dxdy,
+\end{equation*}
+and the Wasserstein distance is exactly the cost of optimal transport plan.
+\end{remark}
+
+\begin{lemma}
+The $p$-Wasserstein distance between the two probability measures $\mu$ and $\nu$ on $\mathbb{R}^1$ has the following closed-form expression:
+\begin{align*}
+    W_{p}(\mu,\nu)&=\left(\int^{+\infty}_{-\infty}|U(s)-V(s)|^{p}ds\right)^{1/p}&&\triangleright\int\text{quantity}\times\text{unit distance}\\
+    &=\left(\int^1_0|U^{-1}(t)-V^{-1}(t)|^{p}dt\right)^{1/p},&&\triangleright\int\text{distance}\times\text{unit quantity}
+\end{align*}
+where $U$ and $V$ are the CDFs of $\mu,\nu$ respectively.
+\begin{proof}
+Assuming $\{(x_1,y_1), (x_2,y_2)\}\subset \supp(\gamma^*)\footnote{The support of a probability distribution can be loosely thought of as the closure of the set of possible values of a random variable having that distribution. }, x_1<x_2$, where $\gamma^*$ denotes the optimal transport plan. Given the previous assumption, we claim $y_1\le y_2$.
+
+Supposing that $y_1\le y_2$ is not the case, namely $y_1>y_2$, which yields\footnote{For a more detailed deviation of this inequality in the case of $p>1$, refers to Appendix A in \url{https://arxiv.org/pdf/1509.02237.pdf}} 
+\begin{equation*}
+    |x_1-y_2|^p+|x_2-y_1|^p<|x_1-y_1|^p+|x_2-y_2|^p
+\end{equation*}
+However this inequality suggests that $\{(x_1,y_2), (x_2,y_1)\}\subset \supp(\gamma^*)$, rather than $\{(x_1,y_1), (x_2,y_2)\}\subset \supp(\gamma^*)$, which contradicts the initial assumption, namely the optimality of $\gamma^*$, as it indicates that $\gamma^*$ is no cyclically monotone.
+
+Now, for $x\in\supp(\mu), y\in\supp(\nu)$, we claim that $(x,y)\in\supp(\gamma^*)$ if and only if $U(x)=V(y)$. To see this, note that form the monotonicity property we just built, we deduce that $(x,y)\in\supp(\gamma^*)$ if and only if
+\begin{equation*}
+    \gamma^*(\mathbb{R},(-\infty,y])=\gamma^*((-\infty,x],(-\infty,y])=\gamma^*((-\infty,x],\mathbb{R})
+\end{equation*}
+In turn, the fact that $\gamma^*\in\Gamma(\mu,\nu)$ implies that $\gamma^*((-\infty,x],\mathbb{R})=F(x)$ and $\gamma^*(\mathbb{R},(-\infty,y])=G(y)$. From previous relation, we conclude that
+\begin{equation*}
+    W_{p}(\mu ,\nu )=\left(\inf _{\gamma \in \Gamma (\mu ,\nu )}\int _{M\times M}\mathrm{dist}(x,y)^{p}\gamma (x,y)\mathrm {d}x\mathrm {d}y\right)^{1/p}=\left(\int^1_0|F^{-1}(t)-G^{-1}(t)|^{p}dt\right)^{1/p}
+\end{equation*}
+\end{proof}
+\end{lemma}
+
+\begin{example}
+For one dimensional discrete case, to transport $\nu$ to $\mu$, 
+\begin{enumerate}
+    \item 4 extra squares would be moved from 0 to 1;
+    \item 3 extra squares would be moved from 1 to 2;
+    \item 2 extra squares would be moved from 2 to 3;
+    \item 1 extra squares would be moved from 3 to 4.
+\end{enumerate}
+The ``earth'' need to be moved is exactly the difference between the two CDFs at each location. Therefore the $p$-Wasserstein distance equals to $(\sum|U(s)-V(s)|^{p}ds)^{1/p}=(\sum4^p\times1+3^p\times1+2^p\times1+1^p\times1)^{1/p}$
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.2]{figure/mupdf.png}
+    \includegraphics[scale=0.2]{figure/nupdf.png}
+    \includegraphics[scale=0.2]{figure/mucdf.png}
+    \includegraphics[scale=0.2]{figure/nucdf.png}
+    \caption{Two distribution $\mu$ and $\nu$.}
+    \label{fig:my_label}
+\end{figure}
+\end{example}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.3]{figure/ot.png}
+    \caption{Optimal transport measures the minimal effort required for filling $−µ_1$ with $µ_0$, i.e. transporting one distribution to another.}
+\end{figure}
+
+\begin{remark}
+Relationship between \textbf{KL divergence}, \textbf{JS divergence} and \textbf{Wasserstein distance}:
+\begin{itemize}
+    \item Intuitively, KL divergence looks like a distance between two distributions, however $D_{\text{KL}}(p,q)\not=D_{\text{KL}}(q,p)$, namely it is asymmetric. So comes the JS divergence.
+    \item When the two distributions are far apart, the KL divergence cannot reflect the distance between the distributions while JS divergence is constant, which is deadly for backpropagation in neural network. Nevertheless, the Wasserstein distance can tackle this drawback of KL/JS divergence, as the optimal transport plan of two distant distributions would always make sense and variable.
+\end{itemize}
+\end{remark}
+
+\begin{remark}
+Advantages of Wasserstein distance:\footnote{Figures in this remark credit to \url{https://www.stat.cmu.edu/~larry/=sml/Opt.pdf}}
+\begin{itemize}
+    \item By leveraging Wasserstein distance, we can get a better average/summary image of two distribution.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.2]{figure/average.png}
+        \caption{ Top: Some random circles. Bottom left: Euclidean average of the circles. Bottom right: Wasserstein barycenter.}
+    \end{figure}
+    \item When we are creating a geodesic between two distributions $P_0, P_1$, and $P_t$ interpolates between them, Wasserstein distance can preserve the basic structure of the distribution.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.2]{figure/distributiongeo.png}
+        \caption{Top row: Geodesic path from $P_0$ to $P_1$. Bottom row: Euclidean path($P_t=tP_0+(1-t)P_1$) from $P_0$ to $P_1$.}
+    \end{figure}
+    \item Wasserstein distance is insensitive to small wiggles.
+\end{itemize}
+\end{remark}
+
+\begin{definition}
+\boxed{\textbf{Wasserstein barycenter}} is defined as
+\begin{equation*}
+    \mu^*=\argmin_\mu \sum_iW_2^2(\mu,\mu_i)
+\end{equation*}
+where $W_2$ is the $L^2$ Wasserstein distance and $\mu_i$ is the sample distribution. For computation in discrete situation, please refer to \url{https://arxiv.org/pdf/1310.4375.pdf}.
+\end{definition}
+
+\begin{remark}
+Euclidean averaging does not contain geometric information. Barycenters under the Wasserstein distance are more intuitive.\footnote{\url{https://people.csail.mit.edu/eddchien/presentations/Stochastic_Wasserstein_Barycenters.pdf}}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{figure/euclideanvwasserstein.png}
+    \caption{Euclidean mean vs. Wasserstein barycenter of distributions.}
+\end{figure}
+\end{remark}
+
+
 \begin{corollary}
 Given $\Delta f=g$, $f(x,y)=\mathcal{F}^{-1}\left[\frac{1}{2\cos(2\pi u/M)+2\cos(2\pi v/N)-4}G(u,v)\right]$.
 \begin{proof}
@@ -2178,7 +2347,7 @@ If $v,\lambda$ satisfy $Av=\lambda v$, then $v,\lambda$ are \boxed{\textbf{eigen
     \centering
     \includegraphics[scale=0.05]{figure/monalisa.png}
     \caption{In this shear mapping the red arrow changes direction, but the blue arrow does not. The blue arrow is an eigenvector of this shear mapping because it does not change direction, and since its length is unchanged, its eigenvalue is 1.}
-    \label{fig:my_label}
+    % \label{fig:my_label}
 \end{figure}
 
 \begin{remark}
@@ -2322,7 +2491,7 @@ where $\sigma_i$ are called singular values.
     Down left: The action of $V^T$, is a rotation.
     Down right: The action of $\Sigma$, a scaling by the singular values $\sigma_1$ horizontally and $\sigma_2$ vertically.
     Top right: The action of $U$ is also a rotation.}
-    \label{fig:my_label}
+    % \label{fig:my_label}
 \end{figure}
 
 \begin{remark}
